@@ -93,6 +93,26 @@
 	return self;
 }
 
+- (instancetype)initWithAudioContentPath:(NSString *)inPath
+{
+	self = [super init];
+	if (self) {
+		dataProcessor = [[SKAudioDataProcessor alloc] init];
+		dataProcessor.delegate = (id)self;
+		
+		NSData *audioData = [NSData dataWithContentsOfFile:inPath];
+		if (audioData) {
+			[dataProcessor.parser parseData:audioData];
+		}
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+			if ([dataProcessor.buffer availablePlayLength] > 0.0) {
+				[delegate audioStream:self updateAvailableTime:[dataProcessor.buffer availablePlayLength]];
+			}
+		});
+	}
+	return self;
+}
+
 - (void)cancel
 {
     [audioQueue stop];

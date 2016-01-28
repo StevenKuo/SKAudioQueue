@@ -62,7 +62,7 @@
 }
 
 - (id)initWithAudioContentURL:(NSURL *)inURL;
-
+- (instancetype)initWithAudioContentPath:(NSString *)inPath;
 - (void)cancel;
 
 - (void)playAudioQueue;

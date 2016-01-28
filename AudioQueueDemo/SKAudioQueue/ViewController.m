@@ -60,6 +60,7 @@
 	engine.delegate = (id)self;
     engine.enableCrossFade = YES;
 	// Do any additional setup after loading the view, typically from a nib.
+	
 }
 
 - (void)start:(id)sender
@@ -68,6 +69,8 @@
     b.hidden = YES;
 	[engine loadAudioContentWithURL:[NSURL URLWithString:@"https://s3-us-west-2.amazonaws.com/kkstevenbucket/0806d9c94785710f646501c0312b.mp3"]];
 	
+	// local file
+//	[engine loadAudioContentWithPath:$(your file path)]];
 }
 
 - (void)play:(id)sender

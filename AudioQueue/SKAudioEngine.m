@@ -53,6 +53,13 @@
 	currentAudioStream.delegate = (id)self;
 }
 
+- (void)loadAudioContentWithPath:(NSString *)inPath
+{
+	[self _resetCurrentAudioStream];
+	currentAudioStream = [[SKAudioStream alloc] initWithAudioContentPath:inPath];
+	currentAudioStream.delegate = (id)self;
+}
+
 - (void)play
 {
 	[currentAudioStream playAudioQueue];

@@ -41,6 +41,7 @@
 }
 
 - (void)loadAudioContentWithURL:(NSURL *)inURL;
+- (void)loadAudioContentWithPath:(NSString *)inPath;
 - (void)play;
 - (void)pause;
 - (void)stop;
