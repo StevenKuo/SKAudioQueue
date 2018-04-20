@@ -17,6 +17,7 @@
 - (void)audioEngineDidStopStreaming:(SKAudioEngine *)SKAudioEngine;
 - (void)audioEngineDidReadAudioPacket:(SKAudioEngine *)inAudioEngine;
 - (void)audioEngineDidEndPlaying:(SKAudioEngine *)inAudioEngine;
+- (void)audioEngine:(SKAudioEngine *)SKAudioEngine receivedLoadingError:(NSError *)error;
 - (void)audioEngine:(SKAudioEngine *)SKAudioEngine updatePlaybackTime:(NSTimeInterval)inPlaybackTime;
 - (void)audioEngine:(SKAudioEngine *)SKAudioEngine updateAvailablePlayTime:(NSTimeInterval)inAvailablePlayTime;
 - (void)audioEngineCompleteLoadingData:(SKAudioEngine *)inAudioEngine;

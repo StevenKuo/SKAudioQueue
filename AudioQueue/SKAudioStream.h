@@ -22,6 +22,7 @@
 - (void)audioStreamDidHandleAudioProcess:(SKAudioStream *)inAudioStream;
 - (void)audioStreamDidFinishProcess:(SKAudioStream *)inAudioStream;
 
+- (void)audioStream:(SKAudioStream *)inAudioStream receivedLoadingError:(NSError *)error;
 - (void)audioStreamCompleteLoadingData:(SKAudioStream *)inAudioStream;
 - (void)audioStream:(SKAudioStream *)inAudioStream updateAvailableTime:(NSTimeInterval)inAvailableTime;
 

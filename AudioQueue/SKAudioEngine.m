@@ -195,6 +195,12 @@
 	}
 }
 
+- (void)audioStream:(SKAudioStream *)inAudioStream receivedLoadingError:(NSError *)error {
+    if ([delegate respondsToSelector:@selector(audioEngine:receivedLoadingError:)]) {
+        [delegate audioEngine:self receivedLoadingError:error];
+    }
+}
+
 - (NSUInteger)crossfadeInSec:(SKAudioStream *)inAudioStream
 {
     return crossfadeInSec;

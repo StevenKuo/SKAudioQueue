@@ -242,11 +242,15 @@
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {
 	dispatch_async(dispatch_get_main_queue(), ^{
+        if (error) {
+            [delegate audioStream:self receivedLoadingError:error];
+            return;
+        }
 		loadingCompleted = YES;
+        if ([dataProcessor.buffer availablePlayLength] > 0.0) {
+            [delegate audioStream:self updateAvailableTime:[dataProcessor.buffer availablePlayLength]];
+        }
 	});
-	if ([dataProcessor.buffer availablePlayLength] > 0.0) {
-		[delegate audioStream:self updateAvailableTime:[dataProcessor.buffer availablePlayLength]];
-	}
 }
 
 #pragma mark - processor delegate

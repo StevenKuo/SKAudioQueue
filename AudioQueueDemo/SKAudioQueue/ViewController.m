@@ -10,13 +10,14 @@
 #import "SKAudioEngine.h"
 
 
-@interface ViewController ()
+@interface ViewController ()<UITextFieldDelegate>
 {
 	
 	UILabel *playbackTimeLabel;
 	UISlider *slider;
 	SKAudioEngine *engine;
     BOOL getPlayLength;
+    UITextField *urlField;
 }
 @end
 
@@ -24,6 +25,11 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    
+    urlField = [[UITextField alloc] initWithFrame:CGRectMake(20.0, 50.0, self.view.frame.size.width - 40.0, 30.0)];
+    urlField.backgroundColor = UIColor.whiteColor;
+    urlField.delegate = self;
+    [self.view addSubview:urlField];
 	
 	UIButton *startButton = [UIButton buttonWithType:UIButtonTypeSystem];
 	startButton.frame = CGRectMake(100.0, 100.0, 100.0, 100.0);
@@ -58,17 +64,27 @@
 
 	engine = [[SKAudioEngine alloc] init];
 	engine.delegate = (id)self;
-    engine.enableCrossFade = YES;
+//    engine.enableCrossFade = YES;
 	// Do any additional setup after loading the view, typically from a nib.
 	
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [textField setEnabled:NO];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [textField setEnabled:NO];
+    return YES;
+}
+
 - (void)start:(id)sender
 {
-    UIButton *b = (UIButton *)sender;
-    b.hidden = YES;
-	[engine loadAudioContentWithURL:[NSURL URLWithString:@"https://s3-us-west-2.amazonaws.com/666666bucket/0806d9c94785710f646501c0312b.mp3"]];
 	
+    [engine loadAudioContentWithURL:[NSURL URLWithString:urlField.text]];
+    
 	// local file
 //	[engine loadAudioContentWithPath:$(your file path)]];
 }
@@ -131,9 +147,15 @@
 	
 }
 
+- (void)audioEngine:(SKAudioEngine *)SKAudioEngine receivedLoadingError:(NSError *)error {
+    urlField.text = @"";
+    [urlField setEnabled:YES];
+    
+}
+
 - (void)audioEngineBeginCrossFade:(SKAudioEngine *)inAudioEngine
 {
-    [engine loadAudioContentWithURL:[NSURL URLWithString:@"https://s3-us-west-2.amazonaws.com/666666bucket/ece985aece828873749cf0e0d699.mp3"]];
+//    [engine loadAudioContentWithURL:[NSURL URLWithString:@"next streaming url"]];
 }
 
 @end
